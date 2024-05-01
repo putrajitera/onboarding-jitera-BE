@@ -11,5 +11,6 @@ export const configService = {
     signInOptions: {
       expiresIn: '1h',
     }
-  }
+  },
+  newsApiKey: process.env.NEWS_API_KEY,
 }

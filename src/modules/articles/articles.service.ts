@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { configService } from 'src/configs';
 import { Article } from 'src/database/entities/article.entity';
 import { generatePagination } from 'src/utils/pagination.util';
 import { Repository } from 'typeorm';
@@ -25,7 +26,7 @@ export class ArticlesService {
   }
 
   async seedArticleDb() {
-    const data = await fetch(`https://newsapi.org/v2/everything?q=bitcoin&apiKey=defeb60311944f86b75cd4a0700a4957`);
+    const data = await fetch(`https://newsapi.org/v2/everything?q=bitcoin&apiKey=${configService.newsApiKey}`);
     const result = await data.json();
     const article = result.articles.map(i => {
       return {
