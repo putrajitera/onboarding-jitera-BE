@@ -15,5 +15,5 @@ export class Article {
   content: string;
 
   @Column({ name: 'published_at' })
-  publisedAt: string;
+  publishedAt: Date;
 }
