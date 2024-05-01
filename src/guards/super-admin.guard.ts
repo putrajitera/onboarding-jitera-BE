@@ -8,13 +8,14 @@ import { JwtService } from '@nestjs/jwt';
 import { configService } from 'src/configs';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class SuperAdminGuard implements CanActivate {
   constructor(private jwtService: JwtService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const token = request.cookies.access_token;
-    if (!token) {
+    const superAdminHeader = request['x-api-key'];
+    if (!token || superAdminHeader) {
       throw new UnauthorizedException();
     }
     try {

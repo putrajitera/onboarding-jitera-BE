@@ -26,6 +26,15 @@ export class ArticlesService {
   }
 
   async seedArticleDb() {
+    const isSeeded = await this.articleRepository.find({
+      take: 1,
+    });
+    if (isSeeded.length) {
+      return {
+        status: 'ok',
+        message: 'article already seeded',
+      }
+    }
     const data = await fetch(`https://newsapi.org/v2/everything?q=bitcoin&apiKey=${configService.newsApiKey}`);
     const result = await data.json();
     const article = result.articles.map(i => {
